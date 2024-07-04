@@ -22,7 +22,7 @@
       </el-form-item>
       
       <el-form-item>
-        <el-button type="primary" @click="fetchScrapedData(1)" :loading="loading">查询</el-button>
+        <el-button type="primary" @click="handleSearch" :loading="loading">查询</el-button>
       </el-form-item>
     </el-form>
 
@@ -100,6 +100,11 @@ export default {
       fetchScrapedData(page);
     };
 
+    const handleSearch = () => {
+      currentPage.value = 1; // 重置当前页数为 1
+      fetchScrapedData(1);
+    };
+
     return {
       query,
       searchType,
@@ -111,6 +116,7 @@ export default {
       noDataMessage,
       currentPage,
       handlePageChange,
+      handleSearch,
     };
   },
 };
