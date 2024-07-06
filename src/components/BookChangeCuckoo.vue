@@ -7,9 +7,9 @@
       
       <el-form-item label="查询类型">
         <el-radio-group v-model="searchType">
-          <el-radio label="none">混合查询</el-radio>
-          <el-radio label="publisher">按出版社查询</el-radio>
-          <el-radio label="author">按作者查询</el-radio>
+          <el-radio :value="'none'">混合查询</el-radio>
+          <el-radio :value="'publisher'">按出版社查询</el-radio>
+          <el-radio :value="'author'">按作者查询</el-radio>
         </el-radio-group>
       </el-form-item>
       
@@ -29,7 +29,11 @@
     <el-table v-if="scrapeResult.results.length > 0" :data="scrapeResult.results" style="width: 100%; margin-top: 20px;">
       <el-table-column prop="isbn" label="ISBN" width="180"></el-table-column>
       <el-table-column prop="author" label="作者" width="180"></el-table-column>
-      <el-table-column prop="title" label="书名" width="180"></el-table-column>
+      <el-table-column label="书名" width="180">
+        <template #default="{ row }">
+          <a :href="generateHref(row.href)" target="_blank">{{ row.title }}</a>
+        </template>
+      </el-table-column>
       <el-table-column prop="publisherText" label="出版社" width="180"></el-table-column>
       <el-table-column prop="suffix" label="格式" width="100"></el-table-column>
       <el-table-column prop="size" label="大小" width="100"></el-table-column>
@@ -105,6 +109,10 @@ export default {
       fetchScrapedData(1);
     };
 
+    const generateHref = (href) => {
+      return `${href.replace('.html', '')}`;
+    };
+
     return {
       query,
       searchType,
@@ -117,6 +125,7 @@ export default {
       currentPage,
       handlePageChange,
       handleSearch,
+      generateHref,
     };
   },
 };

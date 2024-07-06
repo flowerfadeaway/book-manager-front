@@ -7,6 +7,7 @@ import Logout from '@/components/Logout.vue';
 import BookChangeCuckoo from '@/components/BookChangeCuckoo.vue';
 import ContactUs from '@/components/ContactUs.vue';
 import {isAuthenticated} from '@/auth';
+import BookDetail from '@/components/BookDetail.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
     {
       path: '/contact',
       component: ContactUs
+    },
+    {
+      path: '/book/:param1/:param2/:param3',
+      name: 'BookDetail',
+      component: BookDetail,
     },
     // {
     //   path: '/about',
