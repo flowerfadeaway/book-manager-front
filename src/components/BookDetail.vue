@@ -11,10 +11,10 @@
             <div>
                 <p><strong>ISBN:</strong> {{ bookDetail.isbn }}</p>
                 <p><strong>作者:</strong> {{ bookDetail.author }}</p>
-                <p><strong>出版社:</strong> {{ bookDetail.publisher }}</p>
-                <p><strong>格式:</strong> {{ bookDetail.format }}</p>
+                <p><strong>出版社:</strong> {{ bookDetail.publisherText }}</p>
+                <p><strong>格式:</strong> {{ bookDetail.suffix }}</p>
                 <p><strong>大小:</strong> {{ bookDetail.size }}</p>
-                <p><strong>下载:</strong> {{ bookDetail.url }}</p>
+                <!-- <p><strong>下载:</strong> {{ bookDetail.url }}</p> -->
             </div>
         </el-card>
         <p v-else-if="loading">加载中...</p>
@@ -75,16 +75,17 @@ export default {
                 const contentDisposition = response.headers['content-disposition'];
                 let fileName = bookDetail.value.title;
 
-                if (contentDisposition) {
-                    const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=(['"]?)([^;\n]*)\1/);
-                    if (fileNameMatch.length > 2) {
-                        fileName = fileNameMatch[2];
-                    }
-                } else {
-                    // 如果 Content-Disposition 头不存在，则使用默认扩展名
-                    const fileExtension = response.headers['content-type'].split('/').pop();
-                    fileName = `${fileName}.${fileExtension}`;
-                }
+                // 这段可以先注释掉，使用上述的bookDetal.value.title中的值即可
+                // if (contentDisposition) {
+                //     const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=(['"]?)([^;\n]*)\1/);
+                //     if (fileNameMatch.length > 2) {
+                //         fileName = fileNameMatch[2];
+                //     }
+                // } else {
+                //     // 如果 Content-Disposition 头不存在，则使用默认扩展名
+                //     const fileExtension = response.headers['content-type'].split('/').pop();
+                //     fileName = `${fileName}.${fileExtension}`;
+                // }
 
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
