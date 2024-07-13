@@ -1,9 +1,19 @@
 <template>
-  <nav>
-    <RouterLink to="/cuckoo">查询</RouterLink>
-    <RouterLink to="/contact">联系我们</RouterLink>
-    <button v-if="isLoggedIn" @click="logout">登出</button>
-    <RouterLink v-if="!isLoggedIn" to="/register">注册</RouterLink>
+  <nav class="nav-bar">
+    <el-menu mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+      <RouterLink to="/cuckoo">
+        <el-menu-item>查询</el-menu-item>
+      </RouterLink>
+      <RouterLink to="/contact">
+        <el-menu-item>联系我们</el-menu-item>
+      </RouterLink>
+      <el-menu-item v-if="isLoggedIn" @click="logout">
+        登出
+      </el-menu-item>
+      <RouterLink v-if="!isLoggedIn" to="/register">
+        <el-menu-item>注册</el-menu-item>
+      </RouterLink>
+    </el-menu>
   </nav>
 
   <RouterView />
@@ -11,18 +21,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRouter, RouterLink, RouterView } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import { RouterLink, RouterView } from 'vue-router'
 
 const router = useRouter()
 const userStore = useUserStore()
 
-// 检查用户登录状态，可以根据实际情况调整
 userStore.checkAuth()
-
 const isLoggedIn = computed(() => userStore.isAuthenticated)
 
-// 定义退出登录方法
 const logout = () => {
   // 清除 Cookie
   document.cookie = "AuthToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/"
@@ -32,6 +40,12 @@ const logout = () => {
   userStore.logout()
 
   // 页面跳转到登录页
-  router.push({ path: '/login' }) // 确保 '/login' 是一个有效的路由路径
+  router.push({ path: '/login' })
 }
 </script>
+
+<style scoped>
+.nav-bar {
+  padding: 10px;
+}
+</style>
