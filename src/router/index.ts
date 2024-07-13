@@ -13,9 +13,17 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/books-manager',
       name: 'books-manager',
       component: BookManagement,
+      meta: {
+        'requiresAuth' : true
+      }
+    },
+    {
+      path: '/',
+      name: 'cuckoo',
+      component: BookChangeCuckoo,
       meta: {
         'requiresAuth' : true
       }
@@ -34,7 +42,10 @@ const router = createRouter({
     },
     {
       path: '/cuckoo',
-      component: BookChangeCuckoo
+      component: BookChangeCuckoo,
+      meta: {
+        'requiresAuth' : true
+      }
     },
     {
       path: '/contact',
@@ -44,6 +55,9 @@ const router = createRouter({
       path: '/book/:param1/:param2/:param3',
       name: 'BookDetail',
       component: BookDetail,
+      meta: {
+        'requiresAuth' : true
+      }
     },
     // {
     //   path: '/about',

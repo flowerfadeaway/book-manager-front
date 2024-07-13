@@ -75,7 +75,7 @@ export default {
                 const contentDisposition = response.headers['content-disposition'];
                 let fileName = bookDetail.value.title;
 
-                // 这段可以先注释掉，使用上述的bookDetal.value.title中的值即可
+                // 这段可以先注释掉，使用上述的bookDetail.value.title中的值即可
                 // if (contentDisposition) {
                 //     const fileNameMatch = contentDisposition.match(/filename[^;=\n]*=(['"]?)([^;\n]*)\1/);
                 //     if (fileNameMatch.length > 2) {
@@ -86,6 +86,12 @@ export default {
                 //     const fileExtension = response.headers['content-type'].split('/').pop();
                 //     fileName = `${fileName}.${fileExtension}`;
                 // }
+
+                // 设置 Content-Length 头，用于显示下载进度
+                const contentLength = response.headers['content-length'];
+                if (contentLength) {
+                    response.headers['Content-Length'] = contentLength;
+                }
 
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
@@ -102,6 +108,7 @@ export default {
                 downloading.value = false;
             }
         };
+
 
 
         onMounted(() => {
