@@ -7,7 +7,7 @@
       <RouterLink to="/contact">
         <el-menu-item>联系我们</el-menu-item>
       </RouterLink>
-      <el-menu-item v-if="isLoggedIn" @click="logout">
+      <el-menu-item v-if="isLoggedIn" class="logout-item" @click="logout">
         登出
       </el-menu-item>
       <RouterLink v-if="!isLoggedIn" to="/register">
@@ -47,5 +47,11 @@ const logout = () => {
 <style scoped>
 .nav-bar {
   padding: 10px;
+  display: flex;
+  justify-content: space-between; /* 将菜单项分散排列 */
+}
+
+.logout-item {
+  margin-left: auto; /* 将该菜单项推到最右侧 */
 }
 </style>
