@@ -3,9 +3,9 @@
       <el-card v-if="bookDetail" class="book-card">
         <div slot="header" class="clearfix">
           <span>{{ bookDetail.title }}</span>
-          <el-button type="primary" icon="el-icon-download" style="float: right;" @click="downloadBook" :loading="downloading">
+          <!-- <el-button type="primary" icon="el-icon-download" style="float: right;" @click="downloadBook" :loading="downloading">
             下载
-          </el-button>
+          </el-button> -->
         </div>
         <div>
           <p><strong>ISBN:</strong> {{ bookDetail.isbn }}</p>
