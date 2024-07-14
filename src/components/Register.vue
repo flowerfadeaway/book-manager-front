@@ -34,7 +34,9 @@
   
   const rules = {
     username: [
-      { required: true, message: '请输入用户名', trigger: 'blur' }
+      { required: true, message: '请输入用户名', trigger: 'blur' },
+      { min: 1, message: '用户名不能为空', trigger: 'blur' },
+      { max: 15, message: '用户名长度不能超过15', trigger: 'blur' },
     ],
     password: [
       { required: true, message: '请输入密码', trigger: 'blur' },
@@ -55,6 +57,14 @@
         // 确保密码长度大于等于6位
         if (registerForm.value.password.length < 6) {
             throw new Error('密码长度不能少于6位');
+        }
+
+        if (registerForm.value.username.length < 1) {
+            throw new Error('用户名不能为空');
+        }
+
+        if (registerForm.value.username.length > 15) {
+            throw new Error('用户名长度不能超过15');
         }
 
         const response = await booksManager.post('/user/register', {
