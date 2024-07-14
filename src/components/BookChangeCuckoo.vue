@@ -70,12 +70,15 @@ const fetchScrapedData = async (page: number) => {
   errorMessage.value = ''; // 重置错误信息
   try {
     let url = `/scrape`;
-    const params = { query: encodeURIComponent(query.value), page };
-    
+    const params = { page };
+
+    // 根据 searchType 构建 URL 和参数
     if (searchType.value === 'publisher') {
-      url += `/publisher`;
+      url += `/publisher/${encodeURIComponent(query.value)}`;
     } else if (searchType.value === 'author') {
-      url += `/author`;
+      url += `/author/${encodeURIComponent(query.value)}`;
+    } else {
+      params.query = encodeURIComponent(query.value);
     }
 
     // 如果开关打开，则在URL中添加language参数
@@ -93,6 +96,7 @@ const fetchScrapedData = async (page: number) => {
     loading.value = false; // 无论请求成功或失败，都将加载状态重置为 false
   }
 };
+
 
 const handlePageChange = (page: number) => {
   currentPage.value = page;
