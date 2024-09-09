@@ -8,6 +8,7 @@ import BookChangeCuckoo from '@/components/BookChangeCuckoo.vue';
 import ContactUs from '@/components/ContactUs.vue';
 import {isAuthenticated} from '@/auth';
 import BookDetail from '@/components/BookDetail.vue';
+import AdminComponent from '@/components/AdminComponent.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,13 @@ const router = createRouter({
     {
       path: '/contact',
       component: ContactUs
+    },
+    {
+      path: '/admin',
+      component: AdminComponent,
+      meta: {
+        'requiresAuth' : true
+      }
     },
     {
       path: '/book/:param1/:param2/:param3',
